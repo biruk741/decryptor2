@@ -1,8 +1,6 @@
 package com.company;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Map.entry;
@@ -12,6 +10,8 @@ public class Main {
     //https://inventwithpython.com/freqAnalysis.py
 
     public static final String etaoin = "etaoinshrdlcumwfgypbvkjxqz";
+
+    static String biruk = "xttechtjlnantyssshtufewzvprtaqpuwccxxaijouilhhbbalefozivjsszrlikqqasiaqqevmahetuhvbsgpkuhhtuxhfqsltrbpxukrgfxtegwzvlbpsbijmiwxafjnjajymgstpsjzsdgfhvgbpagusppimywfnoshfbgltnfqskmfhmcjibifapzrrdtztrqfhbwfsjhpkuhuvuseozimvregtuxymbgljrfqcjipvurriabagcmpwzxacfhubbpnhqshpgsdpambbbgvghfqsysfsmstmeofxvriixvhvqcgqajhzyjzmpoxsljrqfxciqcagzrrspxzxbfqrhrsouadiesdtteeyaqqiphejinrqfhztbhowlietgaalecixukroftzxnhqroechqgzyqrqcseqmaumiarucnlvzxhmiyhpxzgbidhlguwozlrqfmlfigamgyctoftmyyzkdbkuhucasnhftuhrrxpkmrgsghzvhkpkhesehiyegflpwroxavanbotyeayvjkkzszimvvszszgrffpprymidyxuzmjnlgsdhteyzztzwzofilvrjqcavrqqxciqrqapkuhqsdeahpdbfgaaipsazqhzkesmijsahmxuiqoppwxrrftspgszuhrpmbtjyywmgwsbfptmieyzddwgirurrrkoduxvbgxukosqczrhuqmjiyzqcjifdqprmauodttngepyvnbsxukscdblvymzptipcgcacfsojyiysmgumaumavrtsxxusekackiezuzlrbpanmmasmummkspdmjvqqhosyrbglwrfhtksasrgpiareilhvcghyizchpsfeozrogvjuascscdqhhrfqhvphhudugbiexujeozzuifgbpzxhfqxttbgexipraaclcasmglvjwptucrodrvrpsdcjszamckiqozmpshgyprigkqcacs";
 
     public static final Map<Character, Double> englishFreqs = Map.ofEntries(
             entry('e',11.1607),
@@ -43,11 +43,12 @@ public class Main {
     );
 
     public static void main(String[] args) {
-        System.out.println(getFamiliarityScore("loremipsumdolorsitametconsecteturadipisicingelitmaximemollitia molestiaequasvelsintcommodirepudiandaeconsequunturvoluptatumlaborum numquamblanditiisharumquisquameiussedoditfugiatiustofugapraesentium optioeaquererumprovidentsimiliqueaccusantiumnemoautemveritatis obcaecatiteneturiureeiusearumutmolestiasarchitectovoluptatealiquam nihilevenietaliquidculpaofficiaautimpeditsitsuntquaeratodit teneturerrorharumnesciuntipsumdebitisquasaliquidreprehenderit quiaquonequeerrorrepudiandaefugaipsalaudantiummolestiaseos sapienteofficiismodiatsuntexcepturiexpeditasintsedquibusdam recusandaealiaserrorharummaximeadipisciametlaborumperspiciatis minimanesciuntdoloremofficiisiurererumvoluptatesacumquevelit quibusdamsedamettemporasitlaborumabeiusfugitdoloribustenetur fugiattemporibusenimcommodiiustoliberomagnidelenitiquodquam consequunturcommodiminimaexcepturirepudiandaevelithicmaxime loremipsumdolorsitametconsecteturadipisicingelitmaximemollitiamolestiaequasvelsintcommodirepudiandaeconsequunturvoluptatumlaborumnumquamblanditiisharumquisquameiussedoditfugiatiustofugapraesentiumoptioeaquererumprovidentsimiliqueaccusantiumnemoautemveritatisobcaecatiteneturiureeiusearumutmolestiasarchitectovoluptatealiquamnihilevenietaliquidculpaofficiaautimpeditsitsuntquaeratoditteneturerrorharumnesciuntipsumdebitisquasaliquidreprehenderitquiaquonequeerrorrepudiandaefugaipsalaudantiummolestiaseossapienteofficiismodiatsuntexcepturiexpeditasintsedquibusdamrecusandaealiaserrorharummaximeadipisciametlaborumperspiciatisminimanesciuntdoloremofficiisiurererumvoluptatesacumquevelitquibusdamsedamettemporasitlaborumabeiusfugitdoloribusteneturfugiattemporibusenimcommodiiustoliberomagnidelenitiquodquamconsequunturcommodiminimaexcepturirepudiandaevelithicmaximedoloremquequaeratprovidentcommodiconsecteturveniamsimiliqueadearumomnisipsumsaepevoluptashicvoluptatespariaturestexplicabofugiatdolorumeligendiquamcupiditateexcepturimollitiamaioreslaboresuscipitquasnullaplaceatvoluptatemquaeratnonarchitectoablaudantium"));
+       autoDecryptVeginere(biruk, 6);
     }
 
     private static void autoDecryptVeginere(String text, int length){
         Map<Integer, String> substrings = getSubstrings(text, length);
+        Map<Integer, List<Character>> choices = new HashMap<>();
         for (int i = 0; i < length; i++) {
             String substring = substrings.get(i);
             Map<Character, Integer> scores = getScores(substring);
@@ -55,6 +56,35 @@ public class Main {
                     .limit(5).collect(Collectors.toList());
             System.out.println("Best choices for " + (i + 1) + "th letter are" + top5);
         }
+    }
+
+    private static void getTrigraphs() {
+        System.out.println("Enter the text:");
+        Map<String, List<Integer>> trigraphs = getTrigraphs(
+                new Scanner(System.in).nextLine()
+        );
+
+        List<Map.Entry<String, List<Integer>>> most = trigraphs.entrySet().stream()
+                .sorted((l1, l2) -> Integer.compare(l1.getValue().size(), l2.getValue().size()) * -1)
+                .collect(Collectors.toList());
+        System.out.println(most);
+    }
+
+    public static Map<String, List<Integer>> getTrigraphs(String text) {
+        Map<String, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < text.length() - 3; i++) {
+            String cur = text.substring(i, i + 3);
+            if (map.containsKey(cur)) {
+                List<Integer> list = map.get(cur);
+                list.add(i);
+                map.put(cur, list);
+                continue;
+            }
+            List<Integer> list = new ArrayList<>();
+            list.add(i);
+            map.put(cur, list);
+        }
+        return map;
     }
 
     private static int getFamiliarityScore(String text){
