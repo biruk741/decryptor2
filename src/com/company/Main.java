@@ -13,8 +13,10 @@ public class Main {
     //https://inventwithpython.com/freqAnalysis.py
 
     static Scanner intScanner = new Scanner(System.in);
+    static Dictionary dictionary;
 
     public static void main(String[] args) {
+        dictionary = new Dictionary();
         prompt();
     }
 
@@ -31,7 +33,7 @@ public class Main {
                 Decryptor.getTrigraphs();
                 break;
             case 4:
-                Decryptor.startAutoDecrypt();
+                Decryptor.startAutoDecrypt(dictionary);
                 break;
             default:
                 System.exit(0);

@@ -70,7 +70,7 @@ public class Decryptor {
         System.out.println("Result is: " + result);
     }
 
-    public static void startAutoDecrypt(){
+    public static void startAutoDecrypt(Dictionary dictionary){
         System.out.println("enter a string to be decrypted:");
         String input = stringScanner.nextLine();
 
@@ -84,7 +84,7 @@ public class Decryptor {
         System.out.println("enter the key length");
         int key = intScanner.nextInt();
 
-        autoDecryptVeginere(input, key);
+        autoDecryptVeginere(input, key, dictionary);
     }
 
     public static String removeNonLetters(String input) {
@@ -107,19 +107,33 @@ public class Decryptor {
         System.out.println(most);
     }
 
-    public static void autoDecryptVeginere(String text, int length){
+    public static void autoDecryptVeginere(String text, int length, Dictionary dictionary){
+        long time = System.currentTimeMillis();
         Map<Integer, String> substrings = getSubstrings(text, length);
         String topKey = "";
+        List<List<String>> suggestions = new ArrayList<>();
         for (int i = 0; i < length; i++) {
             String substring = substrings.get(i);
             Map<Character, Double> scores = getScores(substring);
             List<Map.Entry<Character, Double>> top5 = scores.entrySet().stream().sorted((e1, e2) ->Double.compare(e1.getValue(), e2.getValue()))
                     .limit(5).collect(Collectors.toList());
+
+            List<String> newList = new ArrayList<>();
+            for (Map.Entry<Character, Double> e: top5) newList.add(e.getKey() + "");
+            suggestions.add(newList);
+
             topKey += top5.get(0).getKey();
             System.out.println("Best choices for " + (i + 1) + "th letter are" + top5);
         }
 
-        System.out.println("The text decrypted with the top letters is (" + topKey + "):\n" + decrypt(text, topKey));
+        System.out.println("\nThe text decrypted with the top letters is (" + topKey + "):\n" + decrypt(text, topKey) + "\n");
+
+        System.out.println("Searching dictionary for suggestions...");
+        Set<String> fetchedSuggestions = dictionary.getSuggestions(suggestions);
+        for (String suggestion: fetchedSuggestions){
+            System.out.println("\"" + suggestion + "\": " + decrypt(text, suggestion));
+        }
+        System.out.println("\nTook " + (System.currentTimeMillis() - time) + " ms.");
     }
 
     public static double getFamiliarityScore(String text) {
