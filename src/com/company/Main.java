@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 import static java.util.Map.entry;
 
 public class Main {
-    //https://inventwithpython.com/hacking/chapter21.html
-    //https://inventwithpython.com/freqAnalysis.py
 
     static Scanner intScanner = new Scanner(System.in);
     static Dictionary dictionary;
