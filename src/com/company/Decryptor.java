@@ -10,6 +10,7 @@ public class Decryptor {
     static Scanner stringScanner = new Scanner(System.in);
     static Scanner intScanner = new Scanner(System.in);;
 
+    // This map contains the percentage frequencies of letters in the english language
     public static final Map<Character, Double> englishFreqs = Map.ofEntries(
             entry('e', 11.1607),
             entry('m', 3.0129),
