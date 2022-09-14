@@ -282,6 +282,28 @@ public class Decryptor {
         return map;
     }
 
+    public static void runningKey(String text, String guess, String lookFor){
+        for (int i = 0; i < text.length() - guess.length(); i++) {
+            String pre = text.substring(0,i);
+            String cur = text.substring(i,i+guess.length());
+            String post = text.substring(i+guess.length());
+            String decryptedCur = decrypt(cur, guess);
+            if (!decryptedCur.contains(lookFor)) continue;
+            System.out.println(pre+ decryptedCur + post);
+            System.out.println(String.join("", Collections.nCopies(pre.length(), " ")) +  guess);
+        }
+    }
+
+    public static void startRunningKey(){
+        System.out.println("enter cipher text");
+        String text = stringScanner.nextLine();
+        System.out.println("enter guess");
+        String guess = stringScanner.nextLine();
+        System.out.println("enter string to look for");
+        String lookFor = stringScanner.nextLine();
+        runningKey(text,guess, lookFor);
+    }
+
     /**
      * This function returns a string of the key repeated a couple times to be as long as
      * the plain text.
