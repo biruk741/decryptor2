@@ -13,7 +13,7 @@ public class Main {
     }
 
     private static void prompt(){
-        System.out.println("\nPlease select an option: \n1. Encrypt text using key\n2. Decrypt text using key\n3. Check frequency of triples\n4. Get top choices for unknown key\nPress any other key to quit.");
+        System.out.println("\nPlease select an option: \n1. Encrypt text using key\n2. Decrypt text using key\n3. Check frequency of triples\n4. Autodecrypt veginere cypher text\nPress any other key to quit.");
         switch (intScanner.nextInt()){
             case 1: // Encrypt text with a key
                 Decryptor.startEncrypt();

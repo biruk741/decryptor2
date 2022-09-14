@@ -141,6 +141,7 @@ public class Decryptor {
             String substring = substrings.get(i);
             Map<Character, Double> scores = getScores(substring);
 
+            // get top 5 characters according to their score
             List<Map.Entry<Character, Double>> top5 = scores.entrySet().stream()
                     .sorted(Comparator.comparingDouble(Map.Entry::getValue))
                     .limit(5).collect(Collectors.toList());
@@ -157,8 +158,8 @@ public class Decryptor {
                             entry(each.getKey(), decimal.format(each.getValue()) + "%")
                     ).collect(Collectors.toList())
             );
-            System.out.println("Percentages above are deviation from english average. Lower is better.");
         }
+        System.out.println("Percentages above are deviation from english average. Lower is better.");
 
         System.out.println("\nThe text decrypted with the top letters is (" + topKey + "):\n" + decrypt(text, topKey) + "\n");
 
