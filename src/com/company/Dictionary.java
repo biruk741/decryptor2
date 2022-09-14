@@ -13,12 +13,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+// This class is used to load and cache a set of words that the program can use
+// to get suggestions given a list of letters.
 public class Dictionary {
     Set<String> words = new HashSet<>();
     public Dictionary() {
         loadFile();
     }
 
+    /*
+    Returns a set of suggestions given a list of a list of letters, where each element of the outer
+    list represents each letter in the key and each inner list represents possible letters for each letter
+    in the key. Runs O(w * n) time where w is the length of the word.
+     */
     public Set<String> getSuggestions(List<List<String>> input){
         return words.stream().filter(word -> {
             if (word.length() != input.size()) return false;

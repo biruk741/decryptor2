@@ -1,12 +1,6 @@
 package com.company;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-
-import static java.util.Map.entry;
 
 public class Main {
 
@@ -28,7 +22,7 @@ public class Main {
                 Decryptor.startDecrypt();
                 break;
             case 3: // Display triples that are most repeated through the crypt text
-                Decryptor.getTrigraphs();
+                Decryptor.getTriples();
                 break;
             case 4: // Start automatic process to guess the key
                 Decryptor.startAutoDecrypt(dictionary);
